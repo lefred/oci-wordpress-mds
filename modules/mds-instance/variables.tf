@@ -2,9 +2,9 @@ variable "compartment_ocid" {
   description = "Compartment's OCID where VCN will be created. "
 }
 
-variable "availability_domains" {
+variable "availability_domain" {
   description = "The Availability Domain of the instance. "
-  default     = []
+  default     = ""
 }
 
 variable "display_name" {
@@ -17,9 +17,9 @@ variable "subnet_id" {
   default     = ""
 }
 
-variable "shape" {
-  description = "Instance shape to use for master instance. "
-  default     = "VM.Standard2.1"
+variable "mysql_shape" {
+  description = "Instance shape to use."
+  default     = "VM.Standard.E2.1"
 }
 
 variable "admin_username" {
@@ -31,3 +31,10 @@ variable "admin_password" {
     description = "Password for the admin user for MDS"
 }
 
+variable "configuration_id" {
+    description = "MySQL Instance Configuration ID"
+}
+
+variable "mysql_data_storage_in_gb" {
+    default = 50
+}

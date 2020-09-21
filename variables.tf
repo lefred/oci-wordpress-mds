@@ -35,26 +35,6 @@ variable "dns_label" {
   default     = ""
 }
 
-variable "label_prefix" {
-  description = "To create unique identifier for multiple clusters in a compartment."
-  default     = ""
-}
-
-variable "cluster_subnet_id" {
-  description = "List of MySQL Shell subnets' id"
-  default     = []
-}
-
-variable "cluster_subnet_id_priv" {
-  description = "List of MySQL Priv subnets' id"
-  default     = []
-}
-
-variable "node_display_name" {
-  description = "The name of a MySQL InnoDB Cluster instance. "
-  default     = "MySQLInnoDBClusterNode"
-}
-
 variable "node_image_id" {
   description = "The OCID of an image for a node instance to use. "
   default     = ""
@@ -65,34 +45,19 @@ variable "node_shape" {
   default     = "VM.Standard1.1"
 }
 
-variable "mysql_root_password" {
-  description = "Password of the MySQL 'root@localhost' account."
+variable "label_prefix" {
+  description = "To create unique identifier for multiple setup in a compartment."
   default     = ""
 }
 
-variable "use_AD" {
-  description = "Using different Availability Domain, by default use of Fault Domain"
-  type        = bool
-  default     = false
+
+variable "admin_password" {
+  description = "Password for the admin user for MySQL Database Service"
 }
 
-variable "number_of_nodes" {
-  description = "Number of nodes in the cluster"
-  default = 3
-}
-
-variable "clusteradmin_password" {
-  description = "Password for the clusteradmin user able to connect from bastion/shell"
-}
-
-variable "cluster_name" {
-  description = "MySQL InnoDB Cluster Name"
-  default = "MyCluster"
-}
-
-variable "bastion_host" {
-  description = "IP fo the bastion host"
-  default = null
+variable "admin_username" {
+  description = "MySQL Database Service Username"
+  default = "admin"
 }
 
 variable "ssh_authorized_keys_path" {
@@ -110,3 +75,21 @@ variable "private_key_path" {
   default     = ""
 }
 
+variable "mysql_shape" {
+    default = "VM.Standard.E2.1"
+}
+
+variable "wp_name" {
+  description = "WordPress Database User Name."
+  default     = "wp"  
+}
+
+variable "wp_password" {
+  description = "WordPress Database User Password."
+  default     = "MyWPpassw0rd!"  
+}
+
+variable "wp_schema" {
+  description = "WordPress MySQL Schema"
+  default     = "wordpress"  
+}

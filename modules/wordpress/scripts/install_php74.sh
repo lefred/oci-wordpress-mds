@@ -16,7 +16,13 @@ chown -R ${user} ~${user}/.mysqlsh
 
 echo "MySQL Shell successfully installed !"
 
-yum-config-manager --enable remi-php74
-yum install php php-cli php-mysqlnd php-zip php-gd php-mcrypt php-mbstring php-xml php-json
+if [[ $(uname -r | sed 's/^.*\(el[0-9]\+\).*$/\1/') == "el8" ]]
+then    
+  dnf -y module enable php:remi-7.4
+  dnf -y install php php-cli php-mysqlnd php-zip php-gd php-mcrypt php-mbstring php-xml php-json
+else
+  yum-config-manager --enable remi-php74
+  yum -y install php php-cli php-mysqlnd php-zip php-gd php-mcrypt php-mbstring php-xml php-json
+fi
 
 echo "MySQL Shell & PHP successfully installed !"

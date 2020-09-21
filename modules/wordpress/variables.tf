@@ -56,3 +56,28 @@ variable "vm_user" {
   description = "The SSH user to connect to the master host."
   default     = "opc"
 }
+
+variable "wp_name" {
+  description = "WordPress Database User Name."
+}
+
+variable "wp_password" {
+  description = "WordPress Database User Password."
+}
+
+variable "wp_schema" {
+  description = "WordPress MySQL Schema"
+}
+
+variable "admin_username" {
+    description = "Username od the MDS admin account"
+}
+
+
+variable "admin_password" {
+    description = "Password for the admin user for MDS"
+}
+
+variable "mds_ip" {
+    description = "Private IP of the MDS Instance"
+}

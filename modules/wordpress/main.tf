@@ -17,12 +17,26 @@ data "template_file" "configure_local_security" {
   template = file("${path.module}/scripts/configure_local_security.sh")
 }
 
+data "template_file" "create_wp_db" {
+  template = file("${path.module}/scripts/create_wp_db.sh")
+
+  vars = {
+    admin_password = var.admin_password
+    admin_username = var.admin_username
+    wp_name        = var.wp_name
+    wp_password    = var.wp_password
+    wp_schema      = var.wp_schema
+    mds_ip         = var.mds_ip
+  }
+}
+
+
 
 locals {
   php_script      = "~/install_php74.sh"
   wp_script       = "~/install_wp.sh"
   security_script = "~/configure_local_security.sh"
-
+  create_wp_db    = "~/create_wp_db.sh"
 }
 
 resource "oci_core_instance" "WordPress" {
@@ -92,6 +106,21 @@ resource "oci_core_instance" "WordPress" {
     }
   }
 
+ provisioner "file" {
+    content     = data.template_file.create_wp_db.rendered
+    destination = local.create_wp_db
+
+    connection  {
+      type        = "ssh"
+      host        = self.public_ip
+      agent       = false
+      timeout     = "5m"
+      user        = var.vm_user
+      private_key = var.ssh_private_key
+
+    }
+  }
+
 
    provisioner "remote-exec" {
     connection  {
@@ -110,7 +139,9 @@ resource "oci_core_instance" "WordPress" {
        "chmod +x ${local.wp_script}",
        "sudo ${local.wp_script}",
        "chmod +x ${local.security_script}",
-       "sudo ${local.security_script}"
+       "sudo ${local.security_script}",
+       "chmod +x ${local.create_wp_db}",
+       "sudo ${local.create_wp_db}"
     ]
 
    }
