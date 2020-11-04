@@ -1,7 +1,7 @@
-title: "MySQL InnoDB Cluster"
-stackDescription: "MySQL InnoDB Cluster creation with MySQL Shell and Router for Oracle Developer Live"
-schemaVersion: 1.1.0
-version: "20200918"
+title: "WordPress on OCI with MDS"
+stackDescription: "WordPress on OCI with MySQL Database Service"
+schemaVersion: 1.2.0
+version: "20201104"
 locale: "en"
 
 
