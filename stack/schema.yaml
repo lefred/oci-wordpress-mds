@@ -85,7 +85,7 @@ variables:
 
 
   wp_password:
-    type: string
+    type: password
     required: true
     title: MySQL WordPress User's Password
     description: MySQL Password for WordPress User
