@@ -72,24 +72,34 @@ variables:
     required: true
     title: MDS Admin Username
     description: MySQL Database Service's admin username
+    minLength: 1
+    maxLength: 14
+    pattern: "^[a-zA-Z][a-zA-Z0-9]+$"
 
   admin_password:
-    type: string
+    type: password
     required: true
     title: MDS Admin User's Password
     description: Password for MySQL Database Service's admin user
+    pattern: "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\\\"\\\\|,.<>\\/?]).{8,32}$"
+
 
   wp_password:
     type: string
     required: true
     title: MySQL WordPress User's Password
     description: MySQL Password for WordPress User
+    pattern: "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\\\"\\\\|,.<>\\/?]).{8,32}$"
+
 
   wp_name:
     type: string
     required: true
     title: MySQL WordPress Username
     description: MySQL Username for WordPress
+    minLength: 3
+    maxLength: 14
+    pattern: "^[a-zA-Z][a-zA-Z0-9]+$"
 
   wp_schema:
     type: string
