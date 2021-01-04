@@ -1,5 +1,5 @@
 data "oci_core_images" "images_for_shape" {
-    compartment_id = "${var.compartment_ocid}"
+    compartment_id = var.compartment_ocid
     operating_system = "Oracle Linux"
     operating_system_version = "8"
     shape = "${var.node_shape}"
@@ -12,8 +12,8 @@ data "oci_identity_availability_domains" "ad" {
 }
 
 data "template_file" "ad_names" {
-  count    = "${length(data.oci_identity_availability_domains.ad.availability_domains)}"
-  template = "${lookup(data.oci_identity_availability_domains.ad.availability_domains[count.index], "name")}"
+  count    = length(data.oci_identity_availability_domains.ad.availability_domains)
+  template = lookup(data.oci_identity_availability_domains.ad.availability_domains[count.index], "name")
 }
 
 
@@ -178,14 +178,14 @@ resource "oci_core_subnet" "private" {
 }
 
 module "mds-instance" {
-    source         = "./modules/mds-instance"
-    admin_password = var.admin_password
-    admin_username = var.admin_username
-    availability_domain = "${data.template_file.ad_names.*.rendered[0]}"
-    configuration_id = data.oci_mysql_mysql_configurations.shape.configurations[0].id
-    compartment_ocid = var.compartment_ocid
-    subnet_id = "${oci_core_subnet.private.id}"
-    display_name = "MySQLInstance"
+  source         = "./modules/mds-instance"
+  admin_password = var.admin_password
+  admin_username = var.admin_username
+  availability_domain = "${data.template_file.ad_names.*.rendered[0]}"
+  configuration_id = data.oci_mysql_mysql_configurations.shape.configurations[0].id
+  compartment_ocid = var.compartment_ocid
+  subnet_id = "${oci_core_subnet.private.id}"
+  display_name = "MySQLInstance"
 }
 
 module "wordpress" {
@@ -196,8 +196,10 @@ module "wordpress" {
   shape                 = "${var.node_shape}"
   label_prefix          = "${var.label_prefix}"
   subnet_id             = "${oci_core_subnet.public.id}"
-  ssh_authorized_keys   = var.ssh_authorized_keys_path == "" ? tls_private_key.public_private_key_pair.public_key_openssh : file("${var.ssh_authorized_keys_path}")
-  ssh_private_key       = var.ssh_private_key_path == "" ? tls_private_key.public_private_key_pair.private_key_pem : file("${var.ssh_private_key_path}")
+  #ssh_authorized_keys   = var.ssh_authorized_keys_path == "" ? tls_private_key.public_private_key_pair.public_key_openssh : file("${var.ssh_authorized_keys_path}")
+  #ssh_private_key       = var.ssh_private_key_path == "" ? tls_private_key.public_private_key_pair.private_key_pem : file("${var.ssh_private_key_path}")
+  ssh_authorized_keys   = tls_private_key.public_private_key_pair.public_key_openssh 
+  ssh_private_key       = tls_private_key.public_private_key_pair.private_key_pem
   mds_ip                = "${module.mds-instance.private_ip}"
   admin_password        = var.admin_password
   admin_username        = var.admin_username
