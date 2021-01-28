@@ -4,8 +4,8 @@ data "template_file" "install_php" {
   template = file("${path.module}/scripts/install_php74.sh")
 
   vars = {
-    mysql_version         = "${var.mysql_version}",
-    user                  = "${var.vm_user}"
+    mysql_version         = var.mysql_version,
+    user                  = var.vm_user
   }
 }
 
@@ -132,7 +132,7 @@ resource "oci_core_instance" "WordPress" {
       private_key = var.ssh_private_key
 
     }
-   
+
     inline = [
        "chmod +x ${local.php_script}",
        "sudo ${local.php_script}",

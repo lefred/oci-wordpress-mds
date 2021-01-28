@@ -17,3 +17,22 @@ admin_username = "admin"
 admin_password = "MyPassw0rd!"
 
 node_shape = "VM.Standard.E2.1"
+
+mds_instance_name = "MySQLServer"
+wp_instance_name = "WordpressServer1
+wp_name = "wp1"
+wp_password = "MyWPpassw0rd!"
+
+#existing_vcn_ocid = ""
+#existing_internet_gateway_ocid = ""
+#existing_nat_gateway_ocid = ""
+#existing_public_route_table_ocid = ""
+#existing_private_route_table_ocid = ""
+#existing_public_security_list_ocid = ""
+#existing_public_security_list_http_ocid = ""
+#existing_private_security_list_ocid = ""
+#existing_public_subnet_ocid = ""
+#existing_private_subnet_ocid = ""
+#existing_mds_instance_ocid = ""
+
+wp_schema = "wordpress1"
