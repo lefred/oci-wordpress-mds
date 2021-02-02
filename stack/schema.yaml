@@ -66,6 +66,7 @@ variables:
   useExistingInfra:
     title: Use Existing Infrastructure Resources
     type: boolean
+    default: false
 
 
   node_shape:
