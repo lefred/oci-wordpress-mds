@@ -27,6 +27,6 @@ fi
 
 echo "MySQL Shell & PHP successfully installed !"
 
-yum -y install certbot
+yum -y install certbot mod_ssl
 
 echo "Certbot has been installed !"
