@@ -19,9 +19,10 @@ admin_password = "MyPassw0rd!"
 node_shape = "VM.Standard.E2.1"
 
 mds_instance_name = "MySQLServer"
-wp_instance_name = "WordpressServer1
-wp_name = "wp1"
+wp_instance_name = "WordpressServer"
+wp_name = "wp"
 wp_password = "MyWPpassw0rd!"
+wp_schema = "wordpress"
 
 #existing_vcn_ocid = ""
 #existing_internet_gateway_ocid = ""
@@ -35,4 +36,6 @@ wp_password = "MyWPpassw0rd!"
 #existing_private_subnet_ocid = ""
 #existing_mds_instance_ocid = ""
 
-wp_schema = "wordpress1"
+
+nb_of_webserver = 2
+

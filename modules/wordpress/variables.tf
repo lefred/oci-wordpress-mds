@@ -7,9 +7,9 @@ variable "compartment_ocid" {
   description = "Compartment's OCID where VCN will be created. "
 }
 
-variable "availability_domain" {
+variable "availability_domains" {
   description = "The Availability Domain of the instance. "
-  default     = ""
+  default     = []
 }
 
 variable "display_name" {
@@ -80,4 +80,21 @@ variable "admin_password" {
 
 variable "mds_ip" {
     description = "Private IP of the MDS Instance"
+}
+
+variable "nb_of_webserver" {
+    description = "Amount of Webservers to deploy"
+    default = 1
+}
+
+variable "use_AD" {
+  description = "Using different Availability Domain, by default use of Fault Domain"
+  type        = bool
+  default     = false
+}
+
+variable "dedicated" {
+  description = "Create a dedicated user and a dedicated database for each Webservers"
+  type        = bool
+  default     = false
 }

@@ -3,7 +3,11 @@ output "wordpress_public_ip" {
 }
 
 output "wordpress_db_user" {
-  value = var.wp_name
+  value = module.wordpress.wordpress_user_name
+}
+
+output "wordpress_schema" {
+  value = module.wordpress.wordpress_schema_name
 }
 
 output "wordpress_db_password" {

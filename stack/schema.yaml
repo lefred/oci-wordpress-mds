@@ -1,7 +1,7 @@
 title: "WordPress on OCI with MDS"
 dscription: "WordPress on OCI with MySQL Database Service"
-schemaVersion: 1.3.0
-version: "20210127"
+schemaVersion: 1.4.0
+version: "20210208"
 locale: "en"
 
 
@@ -26,6 +26,14 @@ variableGroups:
       - wp_name
       - wp_password
       - wp_schema
+
+  - title: Webservers
+    visible: true
+    variables:
+     - use_multiple_webservers
+     - nb_of_webserver
+     - dedicated
+     - use_AD
 
   - title: Shapes
     visible: true
@@ -68,6 +76,26 @@ variables:
     type: boolean
     default: false
 
+
+  use_multiple_webservers:
+    title: Deploy multiple webservers
+    type: boolean
+    default: false
+  nb_of_webserver:
+    title: Number of Webservers to deploy
+    type: integer
+    default: 1
+    visible: ${use_multiple_webservers}
+  use_AD:
+    title: Deploy on different Availability Domains
+    type: boolean
+    default: false
+    visible: ${use_multiple_webservers}
+  dedicated:
+    title: Does each Webserver need their own user and schema ? (if so the number will be used as suffix)
+    type: boolean
+    default: false
+    visible: ${use_multiple_webservers}
 
   node_shape:
     type: oci:core:instanceshape:name

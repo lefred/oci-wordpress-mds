@@ -230,7 +230,7 @@ module "mds-instance" {
 
 module "wordpress" {
   source                = "./modules/wordpress"
-  availability_domain   = data.template_file.ad_names.*.rendered[0]
+  availability_domains   = data.template_file.ad_names.*.rendered
   compartment_ocid      = var.compartment_ocid
   image_id              = var.node_image_id == "" ? data.oci_core_images.images_for_shape.images[0].id : var.node_image_id
   shape                 = var.node_shape
@@ -245,5 +245,8 @@ module "wordpress" {
   wp_name               = var.wp_name
   wp_password           = var.wp_password
   display_name          = var.wp_instance_name
+  nb_of_webserver       = var.nb_of_webserver
+  use_AD                = var.use_AD
+  dedicated             = var.dedicated
 }
 

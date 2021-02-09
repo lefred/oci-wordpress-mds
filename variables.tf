@@ -159,3 +159,20 @@ variable "wp_instance_name" {
   description = "Name of the WordPress compute instance"
   default     = "WordPressServer"
 }
+
+variable "nb_of_webserver" {
+    description = "Amount of Webservers to deploy"
+    default = 1
+}
+
+variable "use_AD" {
+  description = "Using different Availability Domain, by default use of Fault Domain"
+  type        = bool
+  default     = false
+}
+
+variable "dedicated" {
+  description = "Create a dedicated user and a dedicated database for each Webservers"
+  type        = bool
+  default     = false
+}

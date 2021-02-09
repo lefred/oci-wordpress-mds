@@ -1,5 +1,14 @@
 ## DATASOURCE
 # Init Script Files
+
+locals {
+  php_script      = "~/install_php74.sh"
+  wp_script       = "~/install_wp.sh"
+  security_script = "~/configure_local_security.sh"
+  create_wp_db    = "~/create_wp_db.sh"
+  fault_domains_per_ad = 3
+}
+
 data "template_file" "install_php" {
   template = file("${path.module}/scripts/install_php74.sh")
 
@@ -19,37 +28,34 @@ data "template_file" "configure_local_security" {
 
 data "template_file" "create_wp_db" {
   template = file("${path.module}/scripts/create_wp_db.sh")
-
+  count    = var.nb_of_webserver
   vars = {
-    admin_password = var.admin_password
-    admin_username = var.admin_username
-    wp_name        = var.wp_name
-    wp_password    = var.wp_password
-    wp_schema      = var.wp_schema
-    mds_ip         = var.mds_ip
+    admin_password  = var.admin_password
+    admin_username  = var.admin_username
+    wp_password     = var.wp_password
+    mds_ip          = var.mds_ip
+    wp_name         = var.wp_name
+    wp_schema       = var.wp_schema
+    dedicated       = var.dedicated
+    instancenb      = count.index+1
   }
 }
 
 
-
-locals {
-  php_script      = "~/install_php74.sh"
-  wp_script       = "~/install_wp.sh"
-  security_script = "~/configure_local_security.sh"
-  create_wp_db    = "~/create_wp_db.sh"
-}
-
 resource "oci_core_instance" "WordPress" {
-  availability_domain = var.availability_domain
+  count               = var.nb_of_webserver
   compartment_id      = var.compartment_ocid
-  display_name        = "${var.label_prefix}${var.display_name}"
+  display_name        = "${var.label_prefix}${var.display_name}${count.index+1}"
   shape               = var.shape
+  availability_domain = var.use_AD == false ? var.availability_domains[0] : var.availability_domains[count.index%length(var.availability_domains)]
+  fault_domain        = var.use_AD == true ? "FAULT-DOMAIN-1" : "FAULT-DOMAIN-${(count.index  % local.fault_domains_per_ad) +1}"
+
 
   create_vnic_details {
     subnet_id        = var.subnet_id
-    display_name     = "${var.label_prefix}${var.display_name}"
+    display_name     = "${var.label_prefix}${var.display_name}${count.index+1}"
     assign_public_ip = var.assign_public_ip
-    hostname_label   = var.display_name
+    hostname_label   = "${var.display_name}${count.index+1}"
   }
 
   metadata = {
@@ -107,7 +113,7 @@ resource "oci_core_instance" "WordPress" {
   }
 
  provisioner "file" {
-    content     = data.template_file.create_wp_db.rendered
+    content     = data.template_file.create_wp_db[count.index].rendered
     destination = local.create_wp_db
 
     connection  {
