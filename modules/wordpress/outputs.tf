@@ -3,7 +3,7 @@ output "id" {
 }
 
 output "public_ip" {
-  value = oci_core_instance.WordPress.*.public_ip
+  value = join(", ", oci_core_instance.WordPress.*.public_ip)
 }
 
 output "wordpress_user_name" {

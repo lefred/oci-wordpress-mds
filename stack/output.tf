@@ -11,7 +11,7 @@ output "wordpress_db_password" {
 }
 
 output "mds_instance_ip" {
-  value = module.mds-instance.private_ip
+  value =  module.mds-instance.private_ip
 }
 
 output "ssh_private_key" {
