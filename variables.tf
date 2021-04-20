@@ -176,3 +176,9 @@ variable "dedicated" {
   type        = bool
   default     = false
 }
+
+variable "deploy_mds_ha" {
+  description = "Deploy High Availability for MDS"
+  type        = bool
+  default     = false
+}

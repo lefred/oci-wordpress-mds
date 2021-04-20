@@ -15,6 +15,8 @@ resource "oci_mysql_mysql_db_system" "MDSinstance" {
     display_name = var.display_name
 
     count = var.existing_mds_instance_id == "" ? 1 : 0
+
+    is_highly_available = var.deploy_ha
 }
 
 data "oci_mysql_mysql_db_system" "MDSinstance_to_use" {

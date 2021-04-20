@@ -225,6 +225,7 @@ module "mds-instance" {
   subnet_id = local.private_subnet_id
   display_name = var.mds_instance_name
   existing_mds_instance_id  = var.existing_mds_instance_ocid
+  deploy_ha = var.deploy_mds_ha
 
 }
 

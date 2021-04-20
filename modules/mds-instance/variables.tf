@@ -43,3 +43,8 @@ variable "existing_mds_instance_id" {
   description = "OCID of an existing MDS instance to use"
   default     = ""
 }
+
+variable "deploy_ha" {
+  description = "Use HA for MDS"
+  default = false
+}
