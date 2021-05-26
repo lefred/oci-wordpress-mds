@@ -1,6 +1,6 @@
 variable "mysql_version" {
   description = "The version of the Mysql Shell."
-  default     = "8.0.23"
+  default     = "8.0.25"
 }
 
 variable "compartment_ocid" {
@@ -25,6 +25,16 @@ variable "subnet_id" {
 variable "shape" {
   description = "Instance shape to use for master instance. "
   default     = "VM.Standard2.1"
+}
+
+variable "flex_shape_ocpus" {
+  description = "Flex Instance shape OCPUs"
+  default = 1
+}
+
+variable "flex_shape_memory" {
+  description = "Flex Instance shape Memory (GB)"
+  default = 6
 }
 
 variable "label_prefix" {
@@ -97,4 +107,17 @@ variable "dedicated" {
   description = "Create a dedicated user and a dedicated database for each Webservers"
   type        = bool
   default     = false
+}
+
+locals {
+  compute_flexible_shapes = [
+    "VM.Standard.E3.Flex",
+    "VM.Standard.E4.Flex",
+    "VM.Standard.A1.Flex",
+    "VM.Optimized3.Flex"
+  ]
+}
+
+locals {
+  is_flexible_node_shape = contains(local.compute_flexible_shapes, var.shape)
 }

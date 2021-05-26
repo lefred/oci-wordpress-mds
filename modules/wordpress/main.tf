@@ -50,6 +50,14 @@ resource "oci_core_instance" "WordPress" {
   availability_domain = var.use_AD == false ? var.availability_domains[0] : var.availability_domains[count.index%length(var.availability_domains)]
   fault_domain        = var.use_AD == true ? "FAULT-DOMAIN-1" : "FAULT-DOMAIN-${(count.index  % local.fault_domains_per_ad) +1}"
 
+  dynamic "shape_config" {
+    for_each = local.is_flexible_node_shape ? [1] : []
+    content {
+      memory_in_gbs = var.flex_shape_memory
+      ocpus = var.flex_shape_ocpus
+    }
+  }
+
 
   create_vnic_details {
     subnet_id        = var.subnet_id

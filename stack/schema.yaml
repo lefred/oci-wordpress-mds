@@ -1,7 +1,7 @@
 title: "WordPress on OCI with MDS"
 description: "WordPress on OCI with MySQL Database Service"
-schemaVersion: 1.5.1
-version: "20210504"
+schemaVersion: 1.6.0
+version: "20210526"
 locale: "en"
 
 
@@ -44,6 +44,8 @@ variableGroups:
     visible: true
     variables:
       - node_shape
+      - node_flex_shape_ocpus
+      - node_flex_shape_memory
       - mysql_shape
 
   - title: Network
@@ -107,6 +109,57 @@ variables:
     title: "Select a shape for the WordPress Compute Instance"
     dependsOn:
       compartmentId: compartment_ocid
+
+  node_flex_shape_memory:
+    type: number
+    required: false
+    minimum: 1
+    maximum: 128
+    multipleOf: 1
+    default: 6
+    title: "Flex Shape Memory (GB)"
+    description: "Choose number GB for Flex Shape Memory."
+    visible:
+      and:
+        - or:
+          - eq:
+            - node_shape
+            - "VM.Standard.E3.Flex"
+          - eq:
+            - node_shape
+            - "VM.Standard.E4.Flex"
+          - eq:
+            - node_shape
+            - "VM.Standard.A1.Flex"
+          - eq:
+            - node_shape
+            - "VM.Optimized3.Flex"
+
+  node_flex_shape_ocpus:
+    type: number
+    required: false
+    minimum: 1
+    maximum: 128
+    multipleOf: 1
+    default: 1
+    title: "Flex Shape OCPUs"
+    description: "Choose number of OCPUs for Flex Shape."
+    visible:
+      and:
+        - or:
+          - eq:
+            - node_shape
+            - "VM.Standard.E3.Flex"
+          - eq:
+            - node_shape
+            - "VM.Standard.E4.Flex"
+          - eq:
+            - node_shape
+            - "VM.Standard.A1.Flex"
+          - eq:
+            - node_shape
+            - "VM.Optimized3.Flex"
+
 
   existing_vcn_ocid:
     type: oci:core:vcn:id
