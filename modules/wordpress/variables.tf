@@ -1,6 +1,6 @@
 variable "mysql_version" {
   description = "The version of the Mysql Shell."
-  default     = "8.0.25"
+  default     = "8.0.26"
 }
 
 variable "compartment_ocid" {

@@ -74,7 +74,7 @@ resource "oci_core_route_table" "public_route_table" {
   vcn_id = local.vcn_id
   display_name = "RouteTableForMySQLPublic"
   route_rules {
-    cidr_block = "0.0.0.0/0"
+    destination = "0.0.0.0/0"
     network_entity_id = local.internet_gateway_id
   }
 

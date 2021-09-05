@@ -16,4 +16,5 @@ output "mds_instance_ip" {
 
 output "ssh_private_key" {
   value = local.private_key_to_show
+  sensible = true
 }
