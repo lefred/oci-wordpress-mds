@@ -159,6 +159,9 @@ variables:
           - eq:
             - node_shape
             - "VM.Optimized3.Flex"
+          - eq:
+            - node_shape
+            - "VM.Standard3.Flex"
 
 
   existing_vcn_ocid:
