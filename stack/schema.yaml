@@ -1,6 +1,6 @@
 title: "WordPress on OCI with MDS"
 description: "WordPress on OCI with MySQL Database Service"
-schemaVersion: 1.9.0
+schemaVersion: 2.0.0
 version: "202206081"
 locale: "en"
 
