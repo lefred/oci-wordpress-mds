@@ -2,7 +2,7 @@
 # Init Script Files
 
 locals {
-  php_script      = "~/install_php74.sh"
+  php_script      = "~/install_php82.sh"
   wp_script       = "~/install_wp.sh"
   security_script = "~/configure_local_security.sh"
   create_wp_db    = "~/create_wp_db.sh"
@@ -10,7 +10,7 @@ locals {
 }
 
 data "template_file" "install_php" {
-  template = file("${path.module}/scripts/install_php74.sh")
+  template = file("${path.module}/scripts/install_php82.sh")
 
   vars = {
     mysql_version         = var.mysql_version,

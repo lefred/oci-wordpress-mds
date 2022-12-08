@@ -1,7 +1,7 @@
 title: "WordPress on OCI with MDS"
 description: "WordPress on OCI with MySQL Database Service"
-schemaVersion: 1.8.0
-version: "20220202"
+schemaVersion: 1.9.0
+version: "202206081"
 locale: "en"
 
 
@@ -15,6 +15,11 @@ variableGroups:
       - ssh_authorized_keys_path
       - ssh_private_key_path
       - private_key_path
+      - dns_label
+      - fingerprint
+      - label_prefix
+      - node_image_id
+      - user_ocid
 
   - title: Required Variables
     visible: true
@@ -271,7 +276,7 @@ variables:
   deploy_mds_ha:
     title: Deploy High Availability for MDS
     type: boolean
-    default: fals
+    default: false
 
   wp_password:
     type: password
