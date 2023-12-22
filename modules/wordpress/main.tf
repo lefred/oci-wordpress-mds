@@ -2,10 +2,10 @@
 # Init Script Files
 
 locals {
-  php_script      = "~/install_php82.sh"
-  wp_script       = "~/install_wp.sh"
-  security_script = "~/configure_local_security.sh"
-  create_wp_db    = "~/create_wp_db.sh"
+  php_script      = "/home/opc/install_php82.sh"
+  wp_script       = "/home/opc/install_wp.sh"
+  security_script = "/home/opc/configure_local_security.sh"
+  create_wp_db    = "/home/opc/create_wp_db.sh"
   fault_domains_per_ad = 3
 }
 
